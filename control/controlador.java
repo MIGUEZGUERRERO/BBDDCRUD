@@ -1,48 +1,76 @@
 package control;
 
 
-import usuario.menu;
-import usuario.pedirdatos;
+import java.util.Scanner;
 
+/**
+ * Clase que contiene metodo principal para ejecutar el programa.
+ * 
+ * @author Francisco Miguez.
+ * @version 1.6
+ */
 public class controlador {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+
+		Scanner entrada = new Scanner(System.in);
+		listaPeliculas peliculas = new listaPeliculas();
+		
 		int opcion = 0;
-		
-		listaPeliculas listaA = new listaPeliculas("A");
-		
 		do {
-			menu.mostrarMenu();
-			opcion = pedirdatos.pedirNumero(1, 6, "Seleccione una opción del MENU: ");
-			if (opcion>=1 &&opcion<=5) {
-			procesarOpcion(opcion,listaA);	
-				
+			
+			// Mestra el menú al usuario.
+			System.out.println("********** MENU LA CLAQUETA **********");
+			System.out.println("1. Añadir película");
+			System.out.println("2. Modificar película");
+			System.out.println("3. Borrar película");
+			System.out.println("4. Buscar película por título");
+			System.out.println("5. Mostrar coleción");
+			System.out.println("6. Salir");
+			System.out.print("Seleccione una opción del MENU: ");
+			// Recoge la opción del usuario.
+			opcion = entrada.nextInt();
+			entrada.nextLine();
+			// Se utiliza condicional switch para ejecutar la opción correspondiente.
+			switch (opcion) {
+			case 1:
+				try {
+					peliculas.anadirPelicula();
+				} catch (java.util.InputMismatchException ex) {
+					System.out.println("ERROR");
+				} catch (Exception e) {
+					System.out.println("ERROR");
+				}
+				break;
+			case 2:
+				peliculas.modificarPelicula();
+				break;
+			case 3:
+				peliculas.borrarPelicula();
+				break;
+			case 4:
+				peliculas.buscarPelicula();
+				break;
+			case 5:
+				peliculas.mostrarPeliculas();
+				break;
+			case 6:
+				// Gestiona la opción de salir del programa.
+				System.out.println("Sayonara Baby");
+				break;
+
+			default:
+				// Si no está recogido dentro de las opciones del menú, pide al usuario que
+				// elija una de las opciones.
+				System.out.println("Por favor, elija una opción del MENU");
+				break;
+
 			}
 
 		} while (opcion != 6);
-
-		System.out.println("Sayonara Baby");
+		// Cierra Scanner
+		entrada.close();
 	}
 
-	private static void procesarOpcion (int opcion, listaPeliculas listaA) {
-		
-		switch (opcion) {
-		case 1:
-			//peliculas.anadirPelicula();
-		case 2:
-			//peliculas.modificarPelicula();
-			break;
-		case 3:
-			//peliculas.borrarPelicula();
-			break;
-		case 4:
-			//peliculas.buscarPelicula();
-			break;
-		case 5:
-			listaA.mostrarPeliculas();
-			break;
-	}
-			
-	}
 }
